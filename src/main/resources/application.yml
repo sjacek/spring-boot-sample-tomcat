@@ -1,0 +1,26 @@
+info:
+  app:
+    name: "@project.name@"
+    artifact: "@project.artifactId@"
+    description: "@project.description@"
+    version: "@project.version@"
+
+  build:
+    time: "@build.timestamp@"
+    version: "@buildVersion@"
+    timeFormat: "@maven.build.timestamp.format@"
+    number: "@buildNumber@"
+
+app:
+  url: http://localhost:8093
+  rememberme-cookie-key: ivr-demo
+  rememberme-cookie-valid-in-days: 31
+  default-email-sender: no-reply@ivr-demo.com
+  login-lock-attempts: 10
+  login-lock-minutes: 30
+
+server:
+  compression:
+    enabled: true
+    min-response-size: 1
+  connection-timeout: 5000

@@ -1,0 +1,29 @@
+{
+  "properties": [
+    {
+      "name": "info.app.name",
+      "type": "java.lang.String",
+      "description": "Description for info.app.name."
+    },
+    {
+      "name": "info.app.artifact",
+      "type": "java.lang.String",
+      "description": "Description for info.app.artifact."
+    },
+    {
+      "name": "info.app.description",
+      "type": "java.lang.String",
+      "description": "Description for info.app.description."
+    },
+    {
+      "name": "info.app.version",
+      "type": "java.lang.String",
+      "description": "Description for info.app.version."
+    },
+    {
+      "name": "info.build.time",
+      "type": "java.lang.String",
+      "description": "Description for info.build.time."
+    }
+  ]
+}
