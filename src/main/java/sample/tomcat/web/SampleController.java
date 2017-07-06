@@ -32,7 +32,7 @@ public class SampleController {
 	@GetMapping("/")
 	@ResponseBody
 	public String helloWorld() {
-		return this.helloWorldService.getHelloMessage();
+		return helloWorldService.getHelloMessage();
 	}
 
 }

@@ -13,14 +13,61 @@ info:
 
 app:
   url: http://localhost:8093
-  rememberme-cookie-key: ivr-demo
+  rememberme-cookie-key: sample-tomcat-application
   rememberme-cookie-valid-in-days: 31
-  default-email-sender: no-reply@ivr-demo.com
+  default-email-sender: sample-tomcat-application@demo.com
   login-lock-attempts: 10
   login-lock-minutes: 30
 
 server:
-  compression:
-    enabled: true
-    min-response-size: 1
-  connection-timeout: 5000
+  port: 8091
+  ssl:
+#    enabled: true
+    key-store: keystore.p12
+    key-store-password: Pacjenci#123
+    keyStoreType: PKCS12
+    keyAlias: tomcat
+  redirect-port: 8092
+#
+#  connection-timeout: 5000
+#  session:
+#    timeout: 480
+#  compression:
+#     enabled: true
+#    min-response-size: 1
+#     mime-types: text/html,text/xml,text/plain,text/css,application/json,application/javascript,image/svg+xml,application/x-font-ttf,application/x-font-truetype,application/x-font-opentype,application/vnd.ms-fontobject,application/font-sfnt
+#  use-forward-headers: true
+#
+#  tomcat:
+#    access-log-enabled: true
+#    access-log-pattern: "%h %l %u %t %r %s %b %D"
+#    basedir: ../tomcat
+#    rotate: true
+#
+#tomcat:
+#  ajp:
+#    port: 9091
+#    remoteauthentication: false
+#    enabled: true
+#
+#logging:
+#  level:
+#    org.springframework: INFO
+#    org.mongodb: INFO
+#    org.apache: INFO
+#    com.grinnotech: INFO
+#  file: ./app.log
+#
+#endpoints:
+#  metrics:
+#    enabled: false
+#    filter:
+#      enabled: false
+##  health:
+##    sensitive: false
+#
+#management:
+#  add-application-context-header: false
+##  security:
+##    enabled: true
+#

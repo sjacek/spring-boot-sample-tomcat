@@ -13,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import static org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory.DEFAULT_PROTOCOL;
+
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 
@@ -22,7 +24,16 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     }
 
     @Value("${tomcat.ajp.enabled:false}")
-    Boolean tomcatAjpEnabled;
+    private Boolean tomcatAjpEnabled;
+
+    @Value("${server.port:8081}")
+    private int port;
+
+    @Value("${server.redirect-port:-1}")
+    private int redirectPort;
+
+    @Value("${tomcat.ajp.port:9093}")
+    private int ajpPort;
 
     @Bean
     public EmbeddedServletContainerFactory servletContainer() {
@@ -38,36 +49,26 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             }
         };
 
-        tomcat.addAdditionalTomcatConnectors(initiateHttpConnector());
-        if (tomcatAjpEnabled) {
+        if (redirectPort != -1)
+            tomcat.addAdditionalTomcatConnectors(initiateHttpConnector());
+        if (tomcatAjpEnabled)
             tomcat.addAdditionalTomcatConnectors(initiateAjpConnector());
-        }
 
         return tomcat;
     }
 
-    @Value("${server.port:8443}")
-    private int port;
-
-    @Value("${server.httpPort:8080}")
-    private int httpPort;
-
     private Connector initiateHttpConnector() {
-        Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
+        Connector connector = new Connector(DEFAULT_PROTOCOL);
         connector.setScheme("http");
-        connector.setPort(httpPort);
+        connector.setPort(port);
         connector.setSecure(false);
-        connector.setRedirectPort(port);
+        connector.setRedirectPort(redirectPort);
 
         return connector;
     }
 
-    @Value("${tomcat.ajp.port:9093}")
-    int ajpPort;
-
     private Connector initiateAjpConnector() {
         Connector connector = new Connector("AJP/1.3");
-//        connector.setProtocol("AJP/1.3");
         connector.setScheme("http");
         connector.setPort(ajpPort);
         connector.setSecure(false);
