@@ -20,16 +20,17 @@ app:
   login-lock-minutes: 30
 
 server:
-  port: 8443
-  ssl:
-    enabled: true
-    key-store: keystore.p12
-    key-store-password: Pacjenci#123
-    keyStoreType: PKCS12
-    keyAlias: tomcat
-  http-port: 8088
-
   connection-timeout: 5000
+
+#  port: 8443
+#  ssl:
+##    enabled: true
+#    key-store: keystore.p12
+#    key-store-password: Pacjenci#123
+#    keyStoreType: PKCS12
+#    keyAlias: tomcat
+#  redirect-port: 8196
+
   session:
     timeout: 480
   compression:
@@ -43,31 +44,31 @@ server:
     access-log-pattern: "%h %l %u %t %r %s %b %D"
     basedir: ../tomcat
     rotate: true
-
-tomcat:
-  ajp:
-    port: 9091
-    remoteauthentication: false
-    enabled: true
-
-logging:
-  level:
-    org.springframework: INFO
-    org.mongodb: INFO
-    org.apache: INFO
-    com.grinnotech: INFO
-  file: ./app.log
-
-endpoints:
-  metrics:
-    enabled: false
-    filter:
-      enabled: false
-#  health:
-#    sensitive: false
-
-management:
-  add-application-context-header: false
-#  security:
+#
+#tomcat:
+#  ajp:
+#    port: 9091
+#    remoteauthentication: false
 #    enabled: true
-
+#
+#logging:
+#  level:
+#    org.springframework: INFO
+#    org.mongodb: INFO
+#    org.apache: INFO
+#    com.grinnotech: INFO
+#  file: ./app.log
+#
+#endpoints:
+#  metrics:
+#    enabled: false
+#    filter:
+#      enabled: false
+##  health:
+##    sensitive: false
+#
+#management:
+#  add-application-context-header: false
+##  security:
+##    enabled: true
+#

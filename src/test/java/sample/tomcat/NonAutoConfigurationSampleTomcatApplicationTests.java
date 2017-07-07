@@ -40,6 +40,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Dave Syer
  */
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @DirtiesContext
@@ -50,7 +51,7 @@ public class NonAutoConfigurationSampleTomcatApplicationTests {
 
     @Test
     public void testHome() throws Exception {
-        ResponseEntity<String> entity = this.restTemplate.getForEntity("/", String.class);
+        ResponseEntity<String> entity = restTemplate.getForEntity("/", String.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(entity.getBody()).isEqualTo("Hello World");
     }

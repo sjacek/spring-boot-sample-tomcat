@@ -23,46 +23,43 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         configurer.defaultContentType(MediaType.APPLICATION_JSON).favorPathExtension(true);
     }
 
-    @Value("${tomcat.ajp.enabled:false}")
-    private Boolean tomcatAjpEnabled;
-
     @Value("${server.port:8081}")
     private int port;
 
     @Value("${server.redirect-port:-1}")
     private int redirectPort;
 
-    @Value("${tomcat.ajp.port:9093}")
+    @Value("${tomcat.ajp.port:-1}")
     private int ajpPort;
 
-    @Bean
-    public EmbeddedServletContainerFactory servletContainer() {
-        TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory() {
-            @Override
-            protected void postProcessContext(Context context) {
-                SecurityConstraint securityConstraint = new SecurityConstraint();
-                securityConstraint.setUserConstraint("CONFIDENTIAL");
-                SecurityCollection collection = new SecurityCollection();
-                collection.addPattern("/*");
-                securityConstraint.addCollection(collection);
-                context.addConstraint(securityConstraint);
-            }
-        };
-
-        if (redirectPort != -1)
-            tomcat.addAdditionalTomcatConnectors(initiateHttpConnector());
-        if (tomcatAjpEnabled)
-            tomcat.addAdditionalTomcatConnectors(initiateAjpConnector());
-
-        return tomcat;
-    }
+//    @Bean
+//    public EmbeddedServletContainerFactory servletContainer() {
+//        TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory() {
+//            @Override
+//            protected void postProcessContext(Context context) {
+//                SecurityConstraint securityConstraint = new SecurityConstraint();
+//                securityConstraint.setUserConstraint("CONFIDENTIAL");
+//                SecurityCollection collection = new SecurityCollection();
+//                collection.addPattern("/*");
+//                securityConstraint.addCollection(collection);
+//                context.addConstraint(securityConstraint);
+//            }
+//        };
+//
+//        if (redirectPort != -1)
+//            tomcat.addAdditionalTomcatConnectors(initiateHttpConnector());
+//        if (ajpPort != -1)
+//            tomcat.addAdditionalTomcatConnectors(initiateAjpConnector());
+//
+//        return tomcat;
+//    }
 
     private Connector initiateHttpConnector() {
         Connector connector = new Connector(DEFAULT_PROTOCOL);
         connector.setScheme("http");
-        connector.setPort(port);
+        connector.setPort(redirectPort);
         connector.setSecure(false);
-        connector.setRedirectPort(redirectPort);
+        connector.setRedirectPort(port);
 
         return connector;
     }

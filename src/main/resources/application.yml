@@ -20,14 +20,14 @@ app:
   login-lock-minutes: 30
 
 server:
-  port: 8091
+  port: 8443
   ssl:
 #    enabled: true
     key-store: keystore.p12
     key-store-password: Pacjenci#123
     keyStoreType: PKCS12
     keyAlias: tomcat
-  redirect-port: 8092
+  redirect-port: 8196
 #
 #  connection-timeout: 5000
 #  session:
